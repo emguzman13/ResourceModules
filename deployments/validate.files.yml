@@ -1,0 +1,32 @@
+jobs:
+  - job: Deploy
+    pool:
+      vmImage: ubuntu-latest
+
+    steps:
+      - task: DownloadBuildArtifacts@0
+        inputs:
+          buildType: 'current'
+          downloadType: 'single'
+          artifactName: 'Artifacts'
+          downloadPath: $(System.ArtifactsDirectory)
+
+      - task: AzureCLI@2
+        inputs:
+            azureSubscription: 'emguzman-subscription'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              az deployment sub create -l 'centralus' --template-file '$(System.ArtifactsDirectory)/Artifacts/ResourceModules/modules/resources/resource-group/main.bicep' --parameters '$(System.ArtifactsDirectory)/Artifacts/Azure Resources/deployments/rg-networking.bicepparam' --what-if
+
+
+    # - task: AzureResourceManagerTemplateDeployment@3
+    #   inputs:
+    #     deploymentScope: 'Subscription'
+    #     azureResourceManagerConnection: 'emguzman-subscription'
+    #     subscriptionId: '72d501de-5778-4b23-8a81-33abfd22d159'
+    #     location: 'Central US'
+    #     templateLocation: 'Linked artifact'
+    #     csmFile: '$(System.ArtifactsDirectory)/Artifacts/modules/resources/resource-group/main.bicep'
+    #     csmParametersFile: '$(System.ArtifactsDirectory)/Artifacts/deployments/rg-networking.bicepparam'
+    #     deploymentMode: 'Validation'
