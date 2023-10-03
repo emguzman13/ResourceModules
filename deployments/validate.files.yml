@@ -1,10 +1,16 @@
 jobs:
   - job: Deploy
+
     pool:
-      vmImage: ubuntu-latest
+      ${{ if eq(variables['vmImage'], '') }}:
+        name: $(poolName)
+      ${{ if eq(variables['poolName'], '') }}:
+        vmImage: $(vmImage)
 
     steps:
+      #Solo se ejecutaran las siguientes tareas cuando se use un self-hosted agent pool
       - task: DownloadBuildArtifacts@0
+        condition: and(eq(variables['vmImage'], ''), eq(variables['deployResourceGroup'], 'true'))
         inputs:
           buildType: 'current'
           downloadType: 'single'
@@ -12,12 +18,52 @@ jobs:
           downloadPath: $(System.ArtifactsDirectory)
 
       - task: AzureCLI@2
+        displayName: 'Desplegar resource group'
+        condition: and(eq(variables['vmImage'], ''), eq(variables['deployResourceGroup'], 'true'))
         inputs:
-            azureSubscription: 'emguzman-subscription'
-            scriptType: 'bash'
-            scriptLocation: 'inlineScript'
-            inlineScript: |
-              az deployment sub create -l 'centralus' --template-file '$(System.ArtifactsDirectory)/Artifacts/ResourceModules/modules/resources/resource-group/main.bicep' --parameters '$(System.ArtifactsDirectory)/Artifacts/Azure Resources/deployments/rg-networking.bicepparam' --what-if
+          azureSubscription: $(subscriptionConnection)
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az deployment sub create -l $(location) --template-file '$(System.ArtifactsDirectory)/Artifacts/$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(System.ArtifactsDirectory)/Artifacts/$(deployRepo)/${{ parameters.parametersFile }}' --what-if
+
+      - task: AzureCLI@2
+        displayName: 'Desplegar recurso'
+        condition: and(eq(variables['vmImage'], ''), eq(variables['deployResourceGroup'], 'false'))
+        inputs:
+          azureSubscription: $(subscriptionConnection)
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az deployment group create -g '$(resourceGroupName)' --template-file '$(System.ArtifactsDirectory)/Artifacts/$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(System.ArtifactsDirectory)/Artifacts/$(deployRepo)/${{ parameters.parametersFile }}' --what-if
+
+
+      #Se ejecutaran las siguientes tareas cuando se use un microsoft-hosted agent pool
+      - checkout: ModulesRepo
+
+      - task: AzureCLI@2
+        displayName: 'Desplegar resource group'
+        condition: and(eq(variables['poolName'], ''), eq(variables['deployResourceGroup'], 'true'))
+        inputs:
+          azureSubscription: $(subscriptionConnection)
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az deployment sub create -l $(location) --template-file '${{ parameters.templateFile }}' --parameters '${{ parameters.parametersFile }}' --what-if
+
+      - task: AzureCLI@2
+        displayName: 'Desplegar recurso'
+        condition: and(eq(variables['poolName'], ''), eq(variables['deployResourceGroup'], 'false'))
+        inputs:
+          azureSubscription: $(subscriptionConnection)
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az deployment group create -g '$(resourceGroupName)' --template-file '${{ parameters.templateFile }}' --parameters '${{ parameters.parametersFile }}' --what-if
+
+
+
+
 
 
     # - task: AzureResourceManagerTemplateDeployment@3
