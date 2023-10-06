@@ -4,7 +4,13 @@ param name = 'ega-key-global'
 
 param vaultSku = 'standard'
 
-param publicNetworkAccess = 'Disabled'
+param enableRbacAuthorization = true
+
+param networkAcls = {
+  bypass: 'AzureServices'
+  defaultAction: 'Deny'
+  ipRules: []
+}
 
 param tags = {
   Environment: 'Production'
