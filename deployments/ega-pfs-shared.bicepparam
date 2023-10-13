@@ -8,11 +8,13 @@ param tier = 'GeneralPurpose'
 
 param administratorLogin = 'userLoginTest'
 
+//param administratorLoginPassword = az.getSecret('72d501de-5778-4b23-8a81-33abfd22d159', 'rg-security', 'ega-key-global', 'secretName')
+
 param administratorLoginPassword = 'Pa$$w0rd12345'
 
 param delegatedSubnetResourceId = '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-networking/providers/Microsoft.Network/virtualNetworks/ega-vnet-hub/subnets/postgre'
 
-param privateDnsZoneArmResourceId = '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-networking/providers/Microsoft.Network/privateDnsZones/ega-pfs-shared.postgres.database.azure.com'
+param privateDnsZoneArmResourceId = '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-networking/providers/Microsoft.Network/privateDnsZones/private.postgres.database.azure.com'
 
 param databases = [
   {

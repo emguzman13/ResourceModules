@@ -1,6 +1,6 @@
 using '../modules/network/private-dns-zone/main.bicep'
 
-param name = 'ega-pfs-shared.postgres.database.azure.com'
+param name = 'private.postgres.database.azure.com'
 
 param virtualNetworkLinks = [
   {
