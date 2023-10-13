@@ -1,21 +1,31 @@
-using '../modules/network/virtual-network/main.bicep'
+using '../modules/db-for-postgre-sql/flexible-server/main.bicep'
 
-param name = 'ega-vnet-hub'
+param name = 'ega-pfs-shared'
 
-param addressPrefixes = [
-  '10.0.0.0/16'
-]
+param skuName = 'Standard_D4ds_v4'
 
-param subnets = [
+param tier = 'GeneralPurpose'
+
+param administratorLogin = 'userLoginTest'
+
+param administratorLoginPassword = 'Pa$$w0rd12345'
+
+param delegatedSubnetResourceId = '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-networking/providers/Microsoft.Network/virtualNetworks/ega-vnet-hub/subnets/postgre'
+
+param privateDnsZoneArmResourceId = '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-networking/providers/Microsoft.Network/privateDnsZones/postgres.database.azure.com'
+
+param databases = [
   {
-    name: 'vm'
-    addressPrefix: '10.0.2.0/24'
+    charset: 'UTF8'
+    collation: 'en_US.utf8'
+    name: 'testdb1'
   }
   {
-    name: 'postgre'
-    addressPrefix: '10.0.4.0/24'
+    name: 'testdb2'
   }
 ]
+
+param storageSizeGB = 128
 
 param tags = {
   Environment: 'Production'
