@@ -27,7 +27,7 @@ jobs:
           inlineScript: |
             az account set --subscription '${{ parameters.subscriptionName }}'
             deploymentName='azureDeployment'$(date +"%d-%b-%Y")
-            az deployment sub create -n $deploymentName -l $(location) --template-file '$(System.ArtifactsDirectory)/Artifacts/$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(System.ArtifactsDirectory)/Artifacts/$(deployRepo)/${{ parameters.parametersFile }}' --what-if
+            az deployment sub create -n $deploymentName -l $(location) --template-file '$(System.ArtifactsDirectory)/Artifacts/$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(System.ArtifactsDirectory)/Artifacts/$(modulesRepo)/${{ parameters.parametersFile }}' --what-if
 
       - task: AzureCLI@2
         displayName: 'Desplegar recurso'
@@ -39,7 +39,7 @@ jobs:
           inlineScript: |
             az account set --subscription '${{ parameters.subscriptionName }}'
             deploymentName='azureDeployment'$(date +"%d-%b-%Y")
-            az deployment group create -n $deploymentName -g '${{ parameters.resourceGroupName }}' --template-file '$(System.ArtifactsDirectory)/Artifacts/$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(System.ArtifactsDirectory)/Artifacts/$(deployRepo)/${{ parameters.parametersFile }}' --what-if
+            az deployment group create -n $deploymentName -g '${{ parameters.resourceGroupName }}' --template-file '$(System.ArtifactsDirectory)/Artifacts/$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(System.ArtifactsDirectory)/Artifacts/$(modulesRepo)/${{ parameters.parametersFile }}' --what-if
 
 
       #Se ejecutaran las siguientes tareas cuando se use un microsoft-hosted agent pool
@@ -56,7 +56,7 @@ jobs:
           inlineScript: |
             az account set --subscription '${{ parameters.subscriptionName }}'
             deploymentName='azureDeployment'$(date +"%d-%b-%Y")
-            az deployment sub create -n $deploymentName -l $(location) --template-file '$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(deployRepo)/${{ parameters.parametersFile }}' --what-if
+            az deployment sub create -n $deploymentName -l $(location) --template-file '$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(modulesRepo)/${{ parameters.parametersFile }}' --what-if
 
       - task: AzureCLI@2
         displayName: 'Desplegar recurso'
@@ -68,4 +68,4 @@ jobs:
           inlineScript: |
             az account set --subscription '${{ parameters.subscriptionName }}'
             deploymentName='azureDeployment'$(date +"%d-%b-%Y")
-            az deployment group create -n $deploymentName -g '${{ parameters.resourceGroupName }}' --template-file '$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(deployRepo)/${{ parameters.parametersFile }}' --what-if
+            az deployment group create -n $deploymentName -g '${{ parameters.resourceGroupName }}' --template-file '$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(modulesRepo)/${{ parameters.parametersFile }}' --what-if
