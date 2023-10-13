@@ -16,6 +16,7 @@ param subnets = [
     addressPrefix: '10.0.4.0/24'
     delegations: [
       {
+        name: 'Microsoft.DBforPostgreSQL-flexibleServers'
         properties: {
           serviceName: 'Microsoft.DBforPostgreSQL/flexibleServers'
         }
