@@ -8,9 +8,12 @@ param tier = 'GeneralPurpose'
 
 param administratorLogin = 'userLoginTest'
 
-//param administratorLoginPassword = az.getSecret('72d501de-5778-4b23-8a81-33abfd22d159', 'rg-security', 'ega-key-global', 'secretName')
+param administratorLoginPassword = az.getSecret('72d501de-5778-4b23-8a81-33abfd22d159', 'rg-security', 'ega-key-global', 'postgrePassword')
 
-param administratorLoginPassword = 'Pa$$w0rd12345'
+//param administratorLoginPassword = 'Pa$$w0rd12345'
+
+param passwordAuth = 'Enabled'
+param activeDirectoryAuth = 'Disabled'
 
 param delegatedSubnetResourceId = '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-networking/providers/Microsoft.Network/virtualNetworks/ega-vnet-hub/subnets/postgre'
 
