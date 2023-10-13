@@ -11,10 +11,14 @@ param enableHierarchicalNamespace = true
 param networkAcls = {
   bypass: 'AzureServices'
   defaultAction: 'Deny'
-  ipRules: []
+  ipRules: [
+    {
+      value: '187.190.154.239'
+    }
+  ]
 }
 
 param tags = {
-  POL: '8001'
-  Ambiente: 'UAT'
+  Environment: 'Production'
+  Owner: 'EGA'
 }
