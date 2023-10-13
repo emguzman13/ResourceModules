@@ -14,6 +14,13 @@ param subnets = [
   {
     name: 'postgre'
     addressPrefix: '10.0.4.0/24'
+    delegations: [
+      {
+        properties: {
+          serviceName: 'Microsoft.DBforPostgreSQL/flexibleServers'
+        }
+      }
+    ]
   }
 ]
 
