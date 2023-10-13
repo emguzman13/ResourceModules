@@ -13,6 +13,7 @@ param networkAcls = {
   defaultAction: 'Deny'
   ipRules: [
     {
+      action: 'Allow'
       value: '187.190.154.239'
     }
   ]
