@@ -1,5 +1,5 @@
 jobs:
-  - job: Deploy
+  - job: Validate
 
     pool:
       ${{ if eq(variables['vmImage'], '') }}:
@@ -10,7 +10,7 @@ jobs:
     steps:
       #Solo se ejecutaran las siguientes tareas cuando se use un self-hosted agent pool
       - task: DownloadBuildArtifacts@0
-        condition: and(eq(variables['vmImage'], ''), eq(variables['deployResourceGroup'], 'true'))
+        condition: eq(variables['vmImage'], '')
         inputs:
           buildType: 'current'
           downloadType: 'single'
@@ -25,7 +25,9 @@ jobs:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            az deployment sub create -l $(location) --template-file '$(System.ArtifactsDirectory)/Artifacts/$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(System.ArtifactsDirectory)/Artifacts/$(deployRepo)/${{ parameters.parametersFile }}' --what-if
+            az account set --subscription '${{ parameters.subscriptionName }}'
+            deploymentName='azureDeployment'$(date +"%d-%b-%Y")
+            az deployment sub create -n $deploymentName -l $(location) --template-file '$(System.ArtifactsDirectory)/Artifacts/$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(System.ArtifactsDirectory)/Artifacts/$(deployRepo)/${{ parameters.parametersFile }}' --what-if
 
       - task: AzureCLI@2
         displayName: 'Desplegar recurso'
@@ -35,10 +37,13 @@ jobs:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            az deployment group create -g '$(resourceGroupName)' --template-file '$(System.ArtifactsDirectory)/Artifacts/$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(System.ArtifactsDirectory)/Artifacts/$(deployRepo)/${{ parameters.parametersFile }}' --what-if
+            az account set --subscription '${{ parameters.subscriptionName }}'
+            deploymentName='azureDeployment'$(date +"%d-%b-%Y")
+            az deployment group create -n $deploymentName -g '${{ parameters.resourceGroupName }}' --template-file '$(System.ArtifactsDirectory)/Artifacts/$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(System.ArtifactsDirectory)/Artifacts/$(deployRepo)/${{ parameters.parametersFile }}' --what-if
 
 
       #Se ejecutaran las siguientes tareas cuando se use un microsoft-hosted agent pool
+      - checkout: self
       - checkout: ModulesRepo
 
       - task: AzureCLI@2
@@ -49,7 +54,9 @@ jobs:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            az deployment sub create -l $(location) --template-file '${{ parameters.templateFile }}' --parameters '${{ parameters.parametersFile }}' --what-if
+            az account set --subscription '${{ parameters.subscriptionName }}'
+            deploymentName='azureDeployment'$(date +"%d-%b-%Y")
+            az deployment sub create -n $deploymentName -l $(location) --template-file '$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(deployRepo)/${{ parameters.parametersFile }}' --what-if
 
       - task: AzureCLI@2
         displayName: 'Desplegar recurso'
@@ -59,20 +66,6 @@ jobs:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            az deployment group create -g '$(resourceGroupName)' --template-file '${{ parameters.templateFile }}' --parameters '${{ parameters.parametersFile }}' --what-if
-
-
-
-
-
-
-    # - task: AzureResourceManagerTemplateDeployment@3
-    #   inputs:
-    #     deploymentScope: 'Subscription'
-    #     azureResourceManagerConnection: 'emguzman-subscription'
-    #     subscriptionId: '72d501de-5778-4b23-8a81-33abfd22d159'
-    #     location: 'Central US'
-    #     templateLocation: 'Linked artifact'
-    #     csmFile: '$(System.ArtifactsDirectory)/Artifacts/modules/resources/resource-group/main.bicep'
-    #     csmParametersFile: '$(System.ArtifactsDirectory)/Artifacts/deployments/rg-networking.bicepparam'
-    #     deploymentMode: 'Validation'
+            az account set --subscription '${{ parameters.subscriptionName }}'
+            deploymentName='azureDeployment'$(date +"%d-%b-%Y")
+            az deployment group create -n $deploymentName -g '${{ parameters.resourceGroupName }}' --template-file '$(modulesRepo)/${{ parameters.templateFile }}' --parameters '$(deployRepo)/${{ parameters.parametersFile }}' --what-if
