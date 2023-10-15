@@ -7,6 +7,10 @@ param sku = {
   tier: 'WorkflowStandard'
 }
 
+param maximumElasticWorkerCount = 3
+
+param targetWorkerCount = 1
+
 param tags = {
   Environment: 'Production'
   Owner: 'EGA'
