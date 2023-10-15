@@ -12,6 +12,10 @@ param subnets = [
     addressPrefix: '10.0.2.0/24'
   }
   {
+    name: 'private-endpoint'
+    addressPrefix: '10.0.3.0/24'
+  }
+  {
     name: 'postgre'
     addressPrefix: '10.0.4.0/24'
     delegations: [
@@ -19,6 +23,18 @@ param subnets = [
         name: 'Microsoft.DBforPostgreSQL-flexibleServers'
         properties: {
           serviceName: 'Microsoft.DBforPostgreSQL/flexibleServers'
+        }
+      }
+    ]
+  }
+  {
+    name: 'logicapp'
+    addressPrefix: '10.0.5.0/24'
+    delegations: [
+      {
+        name: 'Microsoft.Web-serverfarms'
+        properties: {
+          serviceName: 'Microsoft.Web/serverfarms'
         }
       }
     ]
