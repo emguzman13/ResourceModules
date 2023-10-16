@@ -25,7 +25,8 @@ param privateEndpoints = [
 param siteConfig = {
   appSettings: [
     {
-      FUNCTIONS_EXTENSION_VERSION: '~4'
+      name: 'FUNCTIONS_EXTENSION_VERSION'
+      value: '~4'
     }
   ]
   functionsRuntimeScaleMonitoringEnabled: false
