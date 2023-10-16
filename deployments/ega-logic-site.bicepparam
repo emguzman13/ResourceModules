@@ -22,6 +22,10 @@ param privateEndpoints = [
   }
 ]
 
+param siteConfig = {
+  functionsRuntimeScaleMonitoringEnabled: false
+}
+
 param tags = {
   Environment: 'Production'
   Owner: 'EGA'
