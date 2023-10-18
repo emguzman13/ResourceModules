@@ -39,6 +39,10 @@ param subnets = [
       }
     ]
   }
+  {
+    name: 'cloud-services'
+    addressPrefix: '10.0.6.0/24'
+  }
 ]
 
 param tags = {

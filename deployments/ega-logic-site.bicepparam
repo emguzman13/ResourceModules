@@ -28,6 +28,10 @@ param siteConfig = {
       name: 'FUNCTIONS_EXTENSION_VERSION'
       value: '~4'
     }
+    {
+      name: 'WEBSITE_DNS_SERVER '
+      value: 'x.x.x.x'
+    }
   ]
   functionsRuntimeScaleMonitoringEnabled: false
 }
