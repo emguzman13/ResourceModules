@@ -18,6 +18,23 @@ param roles = [
 ]
 
 param loadBalancerConfigurations = [
+  //public load balancer
+  {
+    name: 'ega-elb-cls-test'
+    properties: {
+      frontendIpConfigurations: [
+        {
+          name: 'ega-pip-configurations'
+          properties: {
+            publicIPAddress: {
+              id: '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-cloudservices/providers/Microsoft.Network/publicIPAddresses/ega-clouds-test-pip'
+            }
+          }
+        }
+      ]
+    }
+  }
+  //private load balancer
   {
     name: 'ega-ilb-cls-test'
     properties: {
