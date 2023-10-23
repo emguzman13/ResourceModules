@@ -6,6 +6,17 @@ param configurationUrl = 'https://egastacloudservice.blob.core.windows.net/azure
 
 param packageUrl = 'https://egastacloudservice.blob.core.windows.net/azureportaldeploy/CloudServiceTest-18b5a5223fb.cspkg?sp=racw&st=2023-10-23T02:29:20Z&se=2023-10-23T10:29:20Z&spr=https&sv=2022-11-02&sr=b&sig=bdGuxRlpvKRIyrBTy%2FZViyXqek%2F1SOYmtd4eu4MtYYQ%3D'
 
+param roles = [
+  {
+    name: 'WebRole1'
+    sku: {
+      capacity: 1
+      name: 'Standard_D1_v2'
+      tier: 'Standard'
+    }
+  }
+]
+
 param tags = {
   Environment: 'Production'
   Owner: 'EGA'

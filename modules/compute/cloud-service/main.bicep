@@ -19,6 +19,8 @@ param configurationUrl string = ''
 @description('Required. Specifies a URL that refers to the location of the service package in the Blob service. The service package URL can be Shared Access Signature (SAS) URI from any storage account.')
 param packageUrl string = ''
 
+param roles array = []
+
 @allowed([
   ''
   'CanNotDelete'
@@ -60,7 +62,9 @@ resource cloudService 'Microsoft.Compute/cloudServices@2022-09-04' = {
     allowModelOverride: allowModelOverride
     configurationUrl: configurationUrl
     packageUrl: packageUrl
-
+    roleProfile: {
+      roles: roles
+    }
     startCloudService: startCloudService
   }
 
