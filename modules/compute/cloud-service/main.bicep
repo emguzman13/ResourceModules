@@ -7,6 +7,18 @@ param name string
 @description('Optional. Resource location.')
 param location string = resourceGroup().location
 
+@description('Optional. Either to start or not the cloud service')
+param startCloudService bool = true
+
+@description('Optional. Indicated whteher the role sku properties specified in the template should override the role instance count and vm size specified in the .cscfg and .csdef')
+param allowModelOverride bool = false
+
+@description('Required. Specifies a URL that refers to the location of the service configuration in the Blob service. The service package URL can be Shared Access Signature (SAS) URI from any storage account.')
+param configurationUrl string = ''
+
+@description('Required. Specifies a URL that refers to the location of the service package in the Blob service. The service package URL can be Shared Access Signature (SAS) URI from any storage account.')
+param packageUrl string = ''
+
 @allowed([
   ''
   'CanNotDelete'
@@ -40,112 +52,17 @@ resource defaultTelemetry 'Microsoft.Resources/deployments@2021-04-01' = if (ena
 }
 
 //definición del cloud service
-
-resource symbolicname 'Microsoft.Compute/cloudServices@2022-09-04' = {
-  name: 'string'
-  location: 'string'
-  tags: {
-    tagName1: 'tagValue1'
-    tagName2: 'tagValue2'
-  }
-  properties: {
-    allowModelOverride: bool
-    configuration: 'string'
-    configurationUrl: 'string'
-    extensionProfile: {
-      extensions: [
-        {
-          name: 'string'
-          properties: {
-            autoUpgradeMinorVersion: bool
-            forceUpdateTag: 'string'
-            protectedSettings: any()
-            protectedSettingsFromKeyVault: {
-              secretUrl: 'string'
-              sourceVault: {
-                id: 'string'
-              }
-            }
-            publisher: 'string'
-            rolesAppliedTo: [
-              'string'
-            ]
-            settings: any()
-            type: 'string'
-            typeHandlerVersion: 'string'
-          }
-        }
-      ]
-    }
-    networkProfile: {
-      loadBalancerConfigurations: [
-        {
-          id: 'string'
-          name: 'string'
-          properties: {
-            frontendIpConfigurations: [
-              {
-                name: 'string'
-                properties: {
-                  privateIPAddress: 'string'
-                  publicIPAddress: {
-                    id: 'string'
-                  }
-                  subnet: {
-                    id: 'string'
-                  }
-                }
-              }
-            ]
-          }
-        }
-      ]
-      slotType: 'string'
-      swappableCloudService: {
-        id: 'string'
-      }
-    }
-    osProfile: {
-      secrets: [
-        {
-          sourceVault: {
-            id: 'string'
-          }
-          vaultCertificates: [
-            {
-              certificateUrl: 'string'
-            }
-          ]
-        }
-      ]
-    }
-    packageUrl: 'string'
-    roleProfile: {
-      roles: [
-        {
-          name: 'string'
-          sku: {
-            capacity: int
-            name: 'string'
-            tier: 'string'
-          }
-        }
-      ]
-    }
-    startCloudService: bool
-    upgradeMode: 'string'
-  }
-  systemData: {}
-  zones: [
-    'string'
-  ]
-}
-
 resource cloudService 'Microsoft.Compute/cloudServices@2022-09-04' = {
   name: name
   location: location
   tags: tags
-  properties: {}
+  properties: {
+    allowModelOverride: allowModelOverride
+    configurationUrl: configurationUrl
+    packageUrl: packageUrl
+
+    startCloudService: startCloudService
+  }
 
 }
 
