@@ -21,6 +21,8 @@ param packageUrl string = ''
 
 param roles array = []
 
+param loadBalancerConfigurations array = []
+
 @allowed([
   ''
   'CanNotDelete'
@@ -64,6 +66,9 @@ resource cloudService 'Microsoft.Compute/cloudServices@2022-09-04' = {
     packageUrl: packageUrl
     roleProfile: {
       roles: roles
+    }
+    networkProfile: {
+      loadBalancerConfigurations: loadBalancerConfigurations
     }
     startCloudService: startCloudService
   }

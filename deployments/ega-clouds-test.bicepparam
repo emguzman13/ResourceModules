@@ -17,6 +17,28 @@ param roles = [
   }
 ]
 
+param loadBalancerConfigurations = [
+  {
+    //id: '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-cloudservices/providers/Microsoft.Network/loadBalancers/ega-ilb-cls-test'
+    name: 'ega-elb-cls-test'
+    properties: {
+      frontendIpConfigurations: [
+        {
+          name: 'ega-ip-configurations'
+          properties: {
+            privateIPAddress: '10.0.6.100'
+            publicIPAddress: {
+              id: '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-cloudservices/providers/Microsoft.Network/publicIPAddresses/ega-clouds-test-pip'
+            }
+            subnet: {
+              id: '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-networking/providers/Microsoft.Network/virtualNetworks/ega-vnet-hub/subnets/cloud-services'
+            }
+          }
+        }
+      ]
+    }
+  }
+]
 param tags = {
   Environment: 'Production'
   Owner: 'EGA'
