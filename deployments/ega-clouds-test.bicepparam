@@ -2,16 +2,16 @@ using '../modules/compute/cloud-service/main.bicep'
 
 param name = 'ega-clouds-test'
 
-param configurationUrl = 'https://egastacloudservice.blob.core.windows.net/azureportaldeploy/ServiceConfiguration.Cloud-18b5a52320e.cscfg?sp=racw&st=2023-10-23T02:30:22Z&se=2023-10-23T10:30:22Z&spr=https&sv=2022-11-02&sr=b&sig=gyhiRPFLxuWT%2BYVjVh5tula5oisBpJVYwHRHY%2BJTKPA%3D'
+param configurationUrl = 'https://egastacloudservice.blob.core.windows.net/azureportaldeploy/ServiceConfiguration.Cloud.cscfg?sp=racw&st=2023-10-23T03:37:26Z&se=2023-10-23T11:37:26Z&spr=https&sv=2022-11-02&sr=b&sig=NWofZVHvmH%2F3Pbv437wbFhMnkP0KfODuGwaOZKCZ2Qw%3D'
 
-param packageUrl = 'https://egastacloudservice.blob.core.windows.net/azureportaldeploy/CloudServiceTest-18b5a5223fb.cspkg?sp=racw&st=2023-10-23T02:29:20Z&se=2023-10-23T10:29:20Z&spr=https&sv=2022-11-02&sr=b&sig=bdGuxRlpvKRIyrBTy%2FZViyXqek%2F1SOYmtd4eu4MtYYQ%3D'
+param packageUrl = 'https://egastacloudservice.blob.core.windows.net/azureportaldeploy/CloudServiceTest.cspkg?sp=racw&st=2023-10-23T03:37:44Z&se=2023-10-23T11:37:44Z&spr=https&sv=2022-11-02&sr=b&sig=lP0pnzQJyHkTcznS2yUq3MPI%2BvDJjxj%2Fw5dPkVD3mLE%3D'
 
 param roles = [
   {
     name: 'WebRole1'
     sku: {
       capacity: 1
-      name: 'Standard_D1_v2'
+      name: 'Standard_D2_v3'
       tier: 'Standard'
     }
   }
@@ -35,22 +35,22 @@ param loadBalancerConfigurations = [
     }
   }
   //private load balancer
-  {
-    name: 'ega-ilb-cls-test'
-    properties: {
-      frontendIpConfigurations: [
-        {
-          name: 'ega-ip-configurations'
-          properties: {
-            privateIPAddress: '10.0.6.100'
-            subnet: {
-              id: '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-networking/providers/Microsoft.Network/virtualNetworks/ega-vnet-hub/subnets/cloud-services'
-            }
-          }
-        }
-      ]
-    }
-  }
+  //{
+  //  name: 'ega-ilb-cls-test'
+  //  properties: {
+  //    frontendIpConfigurations: [
+  //      {
+  //        name: 'ega-ip-configurations'
+  //        properties: {
+  //          privateIPAddress: '10.0.6.100'
+  //          subnet: {
+  //            id: '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-networking/providers/Microsoft.Network/virtualNetworks/ega-vnet-hub/subnets/cloud-services'
+  //          }
+  //        }
+  //      }
+  //    ]
+  //  }
+  //}
 ]
 param tags = {
   Environment: 'Production'
