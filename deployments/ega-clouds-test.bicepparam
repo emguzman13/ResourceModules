@@ -11,7 +11,7 @@ param roles = [
     name: 'WebRole1'
     sku: {
       capacity: 1
-      name: 'Standard_D2_v3'
+      name: 'Standard_D1_v2'
       tier: 'Standard'
     }
   }
