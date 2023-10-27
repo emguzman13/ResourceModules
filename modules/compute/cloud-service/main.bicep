@@ -75,7 +75,9 @@ resource cloudService 'Microsoft.Compute/cloudServices@2022-09-04' = {
     }
     startCloudService: startCloudService
   }
-
+  dependsOn: [
+    cloudService_pip
+  ]
 }
 
 module cloudService_pip '../../network/public-ip-address/main.bicep' = {
