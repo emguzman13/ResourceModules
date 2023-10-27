@@ -4,6 +4,9 @@ metadata description = 'This module deploys a Cloud Services.'
 @description('Required. The name of the Cloud Service that is being created.')
 param name string
 
+@description('Required. The name of the publicIP that is being created.')
+param publicIpName string
+
 @description('Optional. Resource location.')
 param location string = resourceGroup().location
 
@@ -73,6 +76,14 @@ resource cloudService 'Microsoft.Compute/cloudServices@2022-09-04' = {
     startCloudService: startCloudService
   }
 
+}
+
+module cloudService_pip '../../network/public-ip-address/main.bicep' = {
+  name: '${uniqueString(deployment().name, location)}-publicIP'
+  params: {
+    name: publicIpName
+    skuName: 'Basic'
+  }
 }
 
 resource cloudService_lock 'Microsoft.Authorization/locks@2020-05-01' = if (!empty(lock)) {
