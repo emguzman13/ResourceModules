@@ -85,6 +85,7 @@ module cloudService_pip '../../network/public-ip-address/main.bicep' = {
   params: {
     name: publicIpName
     skuName: 'Basic'
+    domainNameLabel: toLower(name)
   }
 }
 
