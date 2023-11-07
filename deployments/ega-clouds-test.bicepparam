@@ -4,9 +4,9 @@ param name = 'ega-clouds-test'
 
 param publicIpName = 'ega-clouds-test-pip'
 
-param configurationUrl = 'https://egastacloudservice.blob.core.windows.net/azureportaldeploy/ServiceConfiguration.Cloud.cscfg?sp=racw&st=2023-10-27T23:35:21Z&se=2023-10-28T07:35:21Z&spr=https&sv=2022-11-02&sr=b&sig=AnNhYSLymSEwnMvLOfbm73MkT09ZRR5VqyXJmGdXVow%3D'
+param configurationUrl = 'https://egastacloudservice.blob.core.windows.net/azureportaldeploy/ServiceConfiguration.Cloud.cscfg?sp=r&st=2023-11-07T20:04:16Z&se=2024-02-01T04:04:16Z&spr=https&sv=2022-11-02&sr=b&sig=8wFBM22crQH3jUHcaLbIE5%2F%2FQb7XQOkWMKoaPb9uWUE%3D'
 
-param packageUrl = 'https://egastacloudservice.blob.core.windows.net/azureportaldeploy/CloudServiceTest.cspkg?sp=r&st=2023-10-27T23:36:12Z&se=2023-10-28T07:36:12Z&spr=https&sv=2022-11-02&sr=b&sig=cJO3tMHAnpJirrrHrsFvK5a7hAdrJcZ%2BBvwDg8X%2B%2Bv4%3D'
+param packageUrl = 'https://egastacloudservice.blob.core.windows.net/azureportaldeploy/CloudServiceTest.cspkg?sp=r&st=2023-11-07T20:03:18Z&se=2024-02-01T04:03:18Z&spr=https&sv=2022-11-02&sr=b&sig=EyPQvyNndZtmstkA%2BVuXRbosWk1SIrKmigeNNW56dMU%3D'
 
 param roles = [
   {
