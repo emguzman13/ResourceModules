@@ -4,9 +4,9 @@ param name = 'ega-logic-site'
 
 param kind = 'functionapp,workflowapp'
 
-param serverFarmResourceId = '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-apps/providers/Microsoft.Web/serverFarms/ega-logic-asp'
+param serverFarmResourceId = '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-cloudservices/providers/Microsoft.Web/serverfarms/ega-logic-asp'
 
-param storageAccountResourceId = '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-apps/providers/Microsoft.Storage/storageAccounts/egastalogicapp'
+param storageAccountResourceId = '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-cloudservices/providers/Microsoft.Storage/storageAccounts/egastalogicapp'
 
 param virtualNetworkSubnetId = '/subscriptions/72d501de-5778-4b23-8a81-33abfd22d159/resourceGroups/rg-networking/providers/Microsoft.Network/virtualNetworks/ega-vnet-hub/subnets/logicapp'
 
