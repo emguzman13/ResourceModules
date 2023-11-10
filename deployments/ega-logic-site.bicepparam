@@ -23,17 +23,12 @@ param privateEndpoints = [
 ]
 
 param siteConfig = {
-  appSettings: [
-    {
-      name: 'FUNCTIONS_EXTENSION_VERSION'
-      value: '~4'
-    }
-    {
-      name: 'WEBSITE_DNS_SERVER '
-      value: 'x.x.x.x'
-    }
-  ]
   functionsRuntimeScaleMonitoringEnabled: false
+}
+
+param appSettingsKeyValuePairs = {
+  //WEBSITE_DNS_SERVER: '10.16.0.104'
+  FUNCTIONS_EXTENSION_VERSION: '~4'
 }
 
 param tags = {
