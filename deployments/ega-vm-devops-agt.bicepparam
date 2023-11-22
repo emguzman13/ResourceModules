@@ -6,6 +6,11 @@ param adminUsername = 'UsuarioPrueba'
 
 param adminPassword = 'Pa$$w0rd12345'
 
+param osType = 'Windows'
+
+param vmSize = 'Standard_DS2_v2'
+//param adminPassword = az.getSecret('subscriptionId', 'resource group', 'key vault', 'secreto')
+
 param imageReference = {
   offer: 'WindowsServer'
   publisher: 'MicrosoftWindowsServer'
@@ -40,8 +45,7 @@ param osDisk = {
   }
 }
 
-param osType = 'Windows'
-param vmSize = 'Standard_DS2_v2'
+param encryptionAtHost = false
 
 param tags = {
   Environment: 'Production'
