@@ -2,6 +2,8 @@ using '../modules/compute/virtual-machine/main.bicep'
 
 param name = 'ega-vm-devops-agt'
 
+param computerName = 'egavmdevops'
+
 param adminUsername = 'UsuarioPrueba'
 
 param adminPassword = 'Pa$$w0rd12345'
